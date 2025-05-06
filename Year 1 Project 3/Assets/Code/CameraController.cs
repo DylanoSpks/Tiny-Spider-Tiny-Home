@@ -1,34 +1,50 @@
 using UnityEngine;
 
-namespace Code
+public class SpiderCameraController : MonoBehaviour
 {
-    public class SpiderCameraController : MonoBehaviour
+    public Transform target;
+    public float distance = 6f;
+    public float heightOffset = 1f;
+    public float sensitivityX = 3f;
+    public float sensitivityY = 2f;
+    public float minY = -40f;
+    public float maxY = 80f;
+    public LayerMask collisionMask;
+
+    private float _rotationX;
+    private float _rotationY;
+
+    void Start()
     {
-        public Transform target; // Assign your spider object here
-        public float smoothSpeed = 0.125f;
-        public Vector3 offset = new Vector3(0, 5, -10); // Adjust this based on your desired camera angle
-        public float mouseSensitivity = 2.0f;
+        Vector3 angles = transform.eulerAngles;
+        _rotationX = angles.y;
+        _rotationY = angles.x;
 
-        private float _yaw;
-        private float _pitch;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
-        private void LateUpdate()
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        _rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+        _rotationY -= Input.GetAxis("Mouse Y") * sensitivityY;
+        _rotationY = Mathf.Clamp(_rotationY, minY, maxY);
+
+        Quaternion rotation = Quaternion.Euler(_rotationY, _rotationX, 0);
+        Vector3 desiredPosition = target.position - (rotation * Vector3.forward * distance) + Vector3.up * heightOffset;
+
+        // Raycast to avoid clipping through objects
+        RaycastHit hit;
+        Vector3 targetCenter = target.position + Vector3.up * heightOffset;
+
+        if (Physics.Linecast(targetCenter, desiredPosition, out hit, collisionMask))
         {
-            if (!target) return;
-
-            // Get mouse inputs
-            _yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-            _pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-            _pitch = Mathf.Clamp(_pitch, -35f, 60f); // Limit camera looking up/down
-
-            // Rotate the camera based on mouse movement
-            Quaternion rotation = Quaternion.Euler(_pitch, _yaw, 0);
-            Vector3 desiredPosition = target.position + rotation * offset;
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-
-            // Make the camera look at the spider
-            transform.LookAt(target.position);
+            desiredPosition = hit.point;
         }
+
+        transform.position = desiredPosition;
+        transform.rotation = rotation;
     }
 }
