@@ -1278,9 +1278,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af52216e67ab6574ea232d72bfce7a15, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa7e6a83d95b3346aa11e7590bb555c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1904769001}
+  distance: 0.6
+  heightOffset: 0.1
+  sensitivityX: 3
+  sensitivityY: 2
+  minY: -40
+  maxY: 80
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
