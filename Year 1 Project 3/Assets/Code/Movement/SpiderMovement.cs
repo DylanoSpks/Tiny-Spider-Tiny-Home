@@ -96,7 +96,7 @@ public class SpiderMovement : MonoBehaviour
     {
         if (_isClimbing && !_recentWallJump)
         {
-            _rb.AddForce(-_surfaceNormal * (gravityMultiplier * 3f), ForceMode.Acceleration);
+            _rb.AddForce(-_surfaceNormal * (gravityMultiplier * 0.8f), ForceMode.Acceleration);
         }
         else
         {
