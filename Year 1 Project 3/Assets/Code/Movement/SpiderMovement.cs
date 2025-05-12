@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpiderMovement : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed = 15f;
     public float rotationSpeed = 10f;
     public float raycastDistance = 1.5f;
     public LayerMask wallMask;
