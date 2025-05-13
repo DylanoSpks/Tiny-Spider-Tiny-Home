@@ -39,7 +39,7 @@ public class InteractionManager : MonoBehaviour {
         keyText.text = interactKey.ToString();
     }
 
-    //Dylano here is the stuff for the meter
+    //Dylano here is the stuff for the meter thing
     private void Update() {
         CheckForInteractable();
 
