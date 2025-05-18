@@ -6,6 +6,10 @@ using UnityEngine;
 using TMPro;
 
 public class InteractionManager : MonoBehaviour {
+    //Dylano changes
+    [SerializeField] EnergySlider _boltSlider;
+    
+    
     [Header("References")]
     [Tooltip("Camera used to perform raycasts")]   
     [SerializeField] private Camera playerCamera;
@@ -47,6 +51,9 @@ public class InteractionManager : MonoBehaviour {
             _currentInteractable.OnInteract();
             promptUI.SetActive(false);
             _currentInteractable = null;
+            //Dylano Changes start here
+            
+            //_boltSlider.SetBolt();
         }
     }
 
