@@ -43,8 +43,7 @@ public class InteractionManager : MonoBehaviour {
         // Set the key icon text dynamically
         keyText.text = interactKey.ToString();
     }
-
-    //Dylano here is the stuff for the meter thing
+    
     private void Update() {
         CheckForInteractable();
 
@@ -52,7 +51,6 @@ public class InteractionManager : MonoBehaviour {
             _currentInteractable.OnInteract();
             promptUI.SetActive(false);
             _currentInteractable = null;
-            //Dylano Changes start here
 
             _boltSlider.value -= 10;
         }
