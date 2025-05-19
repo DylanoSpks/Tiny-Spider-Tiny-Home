@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnergySlider : MonoBehaviour
 {
-    private Slider _boltSlider;
+    [SerializeField] private Slider _boltSlider;
 
     private void Start()
     {

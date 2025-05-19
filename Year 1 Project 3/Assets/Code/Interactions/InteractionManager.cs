@@ -4,10 +4,11 @@
 // and invokes interaction when the player presses the configured key.
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InteractionManager : MonoBehaviour {
     //Dylano changes
-    [SerializeField] EnergySlider _boltSlider;
+    [SerializeField] private Slider _boltSlider;
     
     
     [Header("References")]
@@ -52,8 +53,8 @@ public class InteractionManager : MonoBehaviour {
             promptUI.SetActive(false);
             _currentInteractable = null;
             //Dylano Changes start here
-            
-            //_boltSlider.SetBolt();
+
+            _boltSlider.value -= 10;
         }
     }
 
