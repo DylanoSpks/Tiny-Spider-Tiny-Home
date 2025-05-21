@@ -1117,7 +1117,7 @@ GameObject:
   - component: {fileID: 405852049}
   - component: {fileID: 405852048}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: InteractionUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3244,6 +3244,33 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 267444941}
   m_SourcePrefab: {fileID: 100100000, guid: bad5dbf4b1359ed4095f43933c7bc782, type: 3}
+--- !u!1 &1181734326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2130412920329743522, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
+  m_PrefabInstance: {fileID: 1727795749}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1181734330
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181734326}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1654167623372299304, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
 --- !u!1001 &1192695752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4041,6 +4068,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644694544}
   m_CullTransparentMesh: 1
+--- !u!1 &1671790239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6928501005041066757, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
+  m_PrefabInstance: {fileID: 1727795749}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1671790243
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671790239}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3633865748600368068, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
 --- !u!1 &1684118053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 39d5bc67083a55c4ca6d02811a307dde, type: 3}
@@ -4462,9 +4516,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8343248219658952724, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 327776454}
+    - targetCorrespondingSourceObject: {fileID: 6928501005041066757, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1671790243}
     - targetCorrespondingSourceObject: {fileID: -9013850086080702800, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1409602126}
+    - targetCorrespondingSourceObject: {fileID: 2130412920329743522, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1181734330}
   m_SourcePrefab: {fileID: 100100000, guid: fee64268e788f9247bc3c12adfdffa2d, type: 3}
 --- !u!1001 &1742361389
 PrefabInstance:
@@ -4701,6 +4761,7 @@ GameObject:
   - component: {fileID: 1904769000}
   - component: {fileID: 1904768999}
   - component: {fileID: 1904769002}
+  - component: {fileID: 1904769003}
   - component: {fileID: 1904768997}
   - component: {fileID: 1904768996}
   m_Layer: 8
@@ -4840,7 +4901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rotationSpeed: 1
-  raycastDistance: 0.8
+  raycastDistance: 2
   wallMask:
     serializedVersion: 2
     m_Bits: 256
@@ -4849,6 +4910,26 @@ MonoBehaviour:
   gravityMultiplier: 0.8
   wallJumpForce: 12
   cameraTransform: {fileID: 1956892064}
+--- !u!114 &1904769003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904768995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1cb10f42b247b4192a02b88373ead6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 50
+  grappleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  springStrength: 100
+  springDamping: 5
+  ropeWidth: 0.02
+  ropeMaterial: {fileID: 0}
 --- !u!1 &1956892060
 GameObject:
   m_ObjectHideFlags: 0

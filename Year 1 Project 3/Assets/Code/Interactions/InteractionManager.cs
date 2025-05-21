@@ -14,7 +14,6 @@ public class InteractionManager : MonoBehaviour {
     [Header("References")]
     [Tooltip("Camera used to perform raycasts")]   
     [SerializeField] private Camera playerCamera;
-
     [Tooltip("Parent GameObject for the prompt UI (small key icon + text)")]
     [SerializeField] private GameObject promptUI;
     [Tooltip("Text field for the key icon (e.g. 'E')")]
