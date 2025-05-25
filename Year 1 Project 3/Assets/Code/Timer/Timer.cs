@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Timer
 {
@@ -18,6 +19,7 @@ namespace Code.Timer
             else if (remainingTime < 0)
             {
                 remainingTime = 0;
+                SceneManager.LoadSceneAsync(2);
                 // Can also be used to call in a function like the game over screen
                 timerText.color = Color.red;
             }

@@ -5,6 +5,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InteractionManager : MonoBehaviour {
     //Dylano changes
@@ -51,10 +52,12 @@ public class InteractionManager : MonoBehaviour {
             promptUI.SetActive(false);
             _currentInteractable = null;
 
-            _boltSlider.value -= 10;
+            _boltSlider.value -= 100;
+            if (_boltSlider.value <= 0);
+            SceneManager.LoadSceneAsync(3);
         }
     }
-
+    
     private void CheckForInteractable() {
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance)) {
