@@ -52,7 +52,7 @@ public class InteractionManager : MonoBehaviour {
             promptUI.SetActive(false);
             _currentInteractable = null;
 
-            _boltSlider.value -= 100;
+            _boltSlider.value -= 10;
             if (_boltSlider.value <= 0);
             SceneManager.LoadSceneAsync(3);
         }
