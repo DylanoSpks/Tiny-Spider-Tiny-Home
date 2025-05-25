@@ -53,8 +53,10 @@ public class InteractionManager : MonoBehaviour {
             _currentInteractable = null;
 
             _boltSlider.value -= 10;
-            if (_boltSlider.value <= 0);
-            SceneManager.LoadSceneAsync(3);
+            if (_boltSlider.value <= 0)
+            {
+                SceneManager.LoadSceneAsync(3);
+            }
         }
     }
     
