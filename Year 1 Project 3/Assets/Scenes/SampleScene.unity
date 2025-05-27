@@ -4098,6 +4098,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00a6d14421ae32341bd317e61bc830a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5999186763907468791, guid: 00a6d14421ae32341bd317e61bc830a2, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -5400,8 +5404,9 @@ LightProbeGroup:
   - {x: -1, y: -1, z: 1}
   - {x: -1, y: -1, z: -1}
   - {x: 0.0247495, y: 0.026961945, z: -0.19234604}
-  - {x: 0.013874562, y: -0.7486099, z: -0.15931597}
+  - {x: -0.99749976, y: -1.0148245, z: -0.2328176}
   - {x: 0.013874562, y: 0.88430834, z: -0.15931597}
+  - {x: -0.50552046, y: -1.0148245, z: -0.2567958}
   m_Dering: 1
 --- !u!4 &1941699317
 Transform:
