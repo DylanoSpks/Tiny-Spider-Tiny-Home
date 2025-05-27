@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpiderMovement : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed = 1.5f;
     public float rotationSpeed = 1f;
     public float raycastDistance = 0.8f;
     public LayerMask wallMask;           // Should include "Crawlable" layer
