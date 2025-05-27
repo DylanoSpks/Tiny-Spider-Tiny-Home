@@ -6,10 +6,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class InteractionManager : MonoBehaviour {
     //Dylano changes
-    [SerializeField] private Slider _boltSlider;
+    [FormerlySerializedAs("_boltSlider")] [SerializeField] private Slider boltSlider;
     
     
     [Header("References")]
@@ -24,7 +25,7 @@ public class InteractionManager : MonoBehaviour {
 
     [Header("Settings")]
     [Tooltip("Max distance for detecting interactables")]  
-    [SerializeField] private float interactDistance = 3f;
+    [SerializeField] private float interactDistance = 3.5f;
     [Tooltip("Key to press for interaction")]  
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
@@ -52,8 +53,8 @@ public class InteractionManager : MonoBehaviour {
             promptUI.SetActive(false);
             _currentInteractable = null;
 
-            _boltSlider.value -= 10;
-            if (_boltSlider.value <= 0)
+            boltSlider.value -= 10;
+            if (boltSlider.value <= 0)
             {
                 SceneManager.LoadSceneAsync(3);
             }
