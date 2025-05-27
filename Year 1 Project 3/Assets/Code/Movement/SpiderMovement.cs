@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class SpiderMovement : MonoBehaviour
 {
-    public float speed = 15f;
-    public float rotationSpeed = 10f;
-    public float raycastDistance = 1.5f;
+    public float speed = 2f;
+    public float rotationSpeed = 1f;
+    public float raycastDistance = 0.8f;
     public LayerMask wallMask;           // Should include "Crawlable" layer
-    public float jumpForce = 8f;
+    public float jumpForce = 4f;
     public float jumpCooldown = 0.5f;
-    public float gravityMultiplier = 2f;
-    public float wallJumpForce = 14f;
+    public float gravityMultiplier = 0.8f;
+    public float wallJumpForce = 6f;
     public Transform cameraTransform;
 
     private Rigidbody _rb;
