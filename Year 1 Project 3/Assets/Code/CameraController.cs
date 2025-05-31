@@ -3,11 +3,11 @@ using UnityEngine;
 public class SpiderCameraController : MonoBehaviour
 {
     public Transform target;
-    public float distance = 6f;
-    public float heightOffset = 1f;
-    public float sensitivityX = 3f;
-    public float sensitivityY = 2f;
-    public float minY = -40f;
+    public float distance = 3f;
+    public float heightOffset = 0.3f;
+    public float sensitivityX = 1f;
+    public float sensitivityY = 1f;
+    public float minY = -80f;
     public float maxY = 80f;
     public LayerMask collisionMask;
 
@@ -41,7 +41,8 @@ public class SpiderCameraController : MonoBehaviour
 
         if (Physics.Linecast(targetCenter, desiredPosition, out hit, collisionMask))
         {
-            desiredPosition = hit.point;
+            const float wallOffset = 0.1f; 
+            desiredPosition = hit.point + (hit.normal * wallOffset);
         }
 
         transform.position = desiredPosition;
