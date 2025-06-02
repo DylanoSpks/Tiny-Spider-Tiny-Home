@@ -4585,7 +4585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec024e14cda9684399bab311380bbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchForce: 5
+  launchForce: 10
   launchSound: {fileID: 0}
 --- !u!65 &746216944
 BoxCollider:
@@ -10536,7 +10536,7 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitTensor: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -10645,14 +10645,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   rotationSpeed: 1
-  raycastDistance: 0.8
+  raycastDistance: 0.5
   wallMask:
     serializedVersion: 2
     m_Bits: 256
-  jumpForce: 4
-  jumpCooldown: 0.5
-  gravityMultiplier: 0.8
-  wallJumpForce: 6
+  jumpForce: 6
+  gravityMultiplier: 2
   cameraTransform: {fileID: 1956892064}
 --- !u!114 &1904769003
 MonoBehaviour:
