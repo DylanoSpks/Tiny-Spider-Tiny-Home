@@ -25,6 +25,9 @@ public class SpiderMovement : MonoBehaviour
     [Tooltip("Assign Main Camera transform for direction references")]
     public Transform cameraTransform;
 
+    // NEW: when true, skip all crawling/jumping/gravity logic
+    [HideInInspector] public bool disableMovement;
+
     private Rigidbody _rb;
     private Vector3 _surfaceNormal = Vector3.up;
     private bool _canJump = true;
@@ -38,140 +41,144 @@ public class SpiderMovement : MonoBehaviour
         _rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         if (cameraTransform == null && Camera.main != null)
+        {
             cameraTransform = Camera.main.transform;
+        }
     }
 
     void Update()
     {
+        if (disableMovement) return;               // ← STOP if swing‐hook is active
+
         DetectSurface();
         HandleJumpInput();
     }
 
     void FixedUpdate()
     {
+        if (disableMovement) return;               // ← STOP if swing‐hook is active
+
         HandleMovement();
         ApplyCustomGravity();
     }
 
     /// <summary>
-    /// Casts rays to detect walls or ground, and updates the current surface normal and grounded state.
-    /// When grounded, re-enable jumping. Skips detection for one frame after wall-jump.
+    /// Casts rays forward and downward to find a wall or floor.
+    /// Now: if we hit a vertical wall, treat it as “grounded” so the spider sticks.
     /// </summary>
     private void DetectSurface()
     {
         if (_recentWallJump)
         {
-            // Skip detection for one FixedUpdate frame after wall-jump
+            // Skip detection one frame after a wall‐jump so we don't immediately re‐stick.
             _surfaceNormal = Vector3.up;
             _isGrounded = false;
             _recentWallJump = false;
             return;
         }
 
-        var origin = transform.position;
+        Vector3 origin = transform.position;
+        RaycastHit hit;
 
-        // 1) Check for a wall in camera's forward direction
-        if (Physics.Raycast(origin, cameraTransform.forward, out var hit, raycastDistance, wallMask))
+        // 1) Check for a wall in camera’s forward direction
+        if (Physics.Raycast(origin, cameraTransform.forward, out hit, raycastDistance, wallMask))
         {
             _surfaceNormal = hit.normal;
-            _isGrounded = false;
+
+            // TREAT vertical wall as grounded to “stick” 
+            if (!_isGrounded)
+            {
+                _isGrounded = true;
+                _canJump = true;
+            }
         }
-        // 2) Else, check for ground directly beneath the spider
+        // 2) Else check for ground beneath
         else if (Physics.Raycast(origin, -transform.up, out hit, raycastDistance, wallMask))
         {
             _surfaceNormal = hit.normal;
             if (!_isGrounded)
             {
-                // Landed on a crawlable surface: re-enable jump
                 _isGrounded = true;
                 _canJump = true;
             }
         }
         else
         {
+            // No wall or floor → in the air
             _surfaceNormal = Vector3.up;
             _isGrounded = false;
         }
 
-        // Smoothly align the spider's up direction to the detected surface normal
+        // Smoothly rotate spider so “up” aligns with _surfaceNormal
         Quaternion targetRot = Quaternion.FromToRotation(transform.up, _surfaceNormal) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
     }
 
     /// <summary>
-    /// Handles movement by setting the Rigidbody's horizontal velocity directly.
-    /// Uses a SphereCast from the spider's position to prevent clipping into near-vertical walls,
-    /// but allows crawling under low geometry (ceilings) by only blocking truly vertical surfaces.
+    /// Reads input (WASD), projects movement onto the current surface, and updates velocity.
     /// </summary>
     private void HandleMovement()
     {
-        // 1) Read raw input axes
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        // 2) Compute camera-relative directions projected onto the current surface
+        // Project camera’s forward/right onto the surface
         Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, _surfaceNormal).normalized;
-        Vector3 camRight   = Vector3.ProjectOnPlane(cameraTransform.right,   _surfaceNormal).normalized;
+        Vector3 camRight   = Vector3.ProjectOnPlane(cameraTransform.right, _surfaceNormal).normalized;
         Vector3 moveDir    = (camForward * v + camRight * h).normalized;
 
-        // 3) Preserve vertical (surface-normal) component of current velocity
+        // Preserve the “vertical” component along surface normal
         Vector3 normalVel = Vector3.Project(_rb.linearVelocity, _surfaceNormal);
 
-        // 4) Desired velocity = horizontal input + preserved vertical component
         Vector3 desiredVelocity = moveDir * speed + normalVel;
 
-        // 5) If there is horizontal input, do a SphereCast to detect near-vertical walls
+        // If input exists, do a spherecast to prevent clipping into walls
         if (moveDir.sqrMagnitude > 0.001f)
         {
             float checkDistance = speed * Time.fixedDeltaTime + 0.1f;
-            Vector3 castOrigin = transform.position; 
+            Vector3 castOrigin = transform.position;
             float sphereRadius = 0.1f;
 
-            // SphereCast to see if there's a near-vertical wall in front
-            if (Physics.SphereCast(castOrigin, sphereRadius, moveDir, out var hit, checkDistance, wallMask))
+            if (Physics.SphereCast(castOrigin, sphereRadius, moveDir, out RaycastHit hit, checkDistance, wallMask))
             {
-                // Only block if the surface normal is near-vertical (dot with Vector3.up < 0.7)
                 float verticalDot = Mathf.Abs(Vector3.Dot(hit.normal, Vector3.up));
-                // verticalDot near zero => purely vertical wall
-                if (verticalDot < 0.7f)
+                if (verticalDot < 0.7f) // nearly vertical wall
                 {
-                    // Wall detected: zero horizontal component so we don't move into it
+                    // Block horizontal movement into the wall
                     desiredVelocity = normalVel;
                 }
-                // Otherwise (ceiling or floor), do not block movement—allows crawling under
+                // If it was floor or ceiling, let it pass
             }
         }
         else
         {
-            // No input → zero horizontal component immediately (prevents drift)
+            // No input → zero horizontal movement
             desiredVelocity = normalVel;
         }
 
-        // 6) Directly set the Rigidbody's velocity so there's no residual drift
         _rb.linearVelocity = desiredVelocity;
     }
 
     /// <summary>
-    /// Applies downward gravity when airborne, or a small stick force when grounded.
+    /// Applies gravity: if grounded (wall or floor), push into surface; otherwise, pull down.
+    /// Because hitting a wall now sets _isGrounded = true, the spider will “stick” instead of sliding off.
     /// </summary>
     private void ApplyCustomGravity()
     {
         if (_isGrounded)
         {
-            // Slight push into ground to prevent sliding off edges
+            // Push into the surface (wall/floor) to keep the spider stuck
             _rb.AddForce(-_surfaceNormal * (gravityMultiplier * 2f), ForceMode.Acceleration);
         }
         else
         {
-            // Normal downward gravity
+            // In the air → normal downward pull
             _rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
         }
     }
 
     /// <summary>
-    /// Allows jumping only if currently grounded. Clears any vertical velocity,
-    /// then applies an impulse along the surface normal. Jump can only occur again
-    /// after DetectSurface sets _isGrounded = true on landing.
+    /// If on a wall or floor (_isGrounded), allow jump along normal. Then skip jumping until we land again.
     /// </summary>
     private void HandleJumpInput()
     {
@@ -180,11 +187,11 @@ public class SpiderMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Remove any vertical component, preserving only horizontal
+            // Clear any “up/down” velocity along the surface normal
             Vector3 horizontalVel = Vector3.ProjectOnPlane(_rb.linearVelocity, _surfaceNormal);
             _rb.linearVelocity = horizontalVel;
 
-            // Apply jump impulse along the surface normal
+            // Impulse along _surfaceNormal
             _rb.AddForce(_surfaceNormal * jumpForce, ForceMode.Impulse);
 
             _canJump = false;
