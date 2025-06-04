@@ -137,7 +137,7 @@ public class SpiderMovement : MonoBehaviour
         {
             float checkDistance = speed * Time.fixedDeltaTime + 0.1f;
             Vector3 castOrigin = transform.position;
-            float sphereRadius = 0.1f;
+            float sphereRadius = 0.05f;
 
             if (Physics.SphereCast(castOrigin, sphereRadius, moveDir, out RaycastHit hit, checkDistance, wallMask))
             {

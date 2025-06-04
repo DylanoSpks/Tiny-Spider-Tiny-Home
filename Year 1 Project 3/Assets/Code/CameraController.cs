@@ -26,7 +26,12 @@ public class SpiderCameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (target == null) return;
+        RotateCamera();
+    }
+
+    private void RotateCamera()
+    {
+        if (!target) return;
 
         _rotationX += Input.GetAxis("Mouse X") * sensitivityX;
         _rotationY -= Input.GetAxis("Mouse Y") * sensitivityY;
@@ -37,7 +42,7 @@ public class SpiderCameraController : MonoBehaviour
 
         // Raycast to avoid clipping through objects
         RaycastHit hit;
-        Vector3 targetCenter = target.position + Vector3.up * heightOffset;
+        Vector3 targetCenter = target.position + target.up * heightOffset;
 
         if (Physics.Linecast(targetCenter, desiredPosition, out hit, collisionMask))
         {
