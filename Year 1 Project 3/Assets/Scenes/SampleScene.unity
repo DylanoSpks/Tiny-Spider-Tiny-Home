@@ -2825,7 +2825,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 29e9d921e3f9aca44ad7bb5939f817ed, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 029b5c9a534e87c439f3067d09c6b866, type: 2}
+      objectReference: {fileID: 2100000, guid: e4280ed5914addc48a3a159d9ff88949, type: 2}
     - target: {fileID: 919132149155446097, guid: 29e9d921e3f9aca44ad7bb5939f817ed, type: 3}
       propertyPath: m_Name
       value: frog chair
@@ -3736,7 +3736,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 9a41d45cee42b2e4d8fb74f43b5dbbfe, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 5f00a35557dee5b499cf97dda42339c0, type: 2}
+      objectReference: {fileID: 2100000, guid: 54e70810829553a43bbbd6dde203b761, type: 2}
     - target: {fileID: 919132149155446097, guid: 9a41d45cee42b2e4d8fb74f43b5dbbfe, type: 3}
       propertyPath: m_Name
       value: TrueBed (2)
@@ -8761,27 +8761,27 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[4]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: -7511558181221131132, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: 'm_Materials.Array.data[5]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0fbaa02133c3d6e43b55bb5b9dda6101, type: 2}
+      objectReference: {fileID: 2100000, guid: 8c8c84f0005b65e40961120f92d9b7cd, type: 2}
     - target: {fileID: 919132149155446097, guid: c638c4cfda9b7fa4788021664e1544f8, type: 3}
       propertyPath: m_Name
       value: desk
