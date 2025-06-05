@@ -44,11 +44,14 @@ public class GrapplingHook : MonoBehaviour
 
     void Update()
     {
-        HandleInput();
-
-        if (_isGrappling)
+        if (!PauseMenu.isPaused)
         {
-            DrawRope();
+            HandleInput();
+
+            if (_isGrappling)
+            {
+                DrawRope();
+            }
         }
     }
 
