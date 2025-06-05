@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpiderCameraController : MonoBehaviour
 {
@@ -20,12 +21,9 @@ public class SpiderCameraController : MonoBehaviour
         Vector3 angles = transform.eulerAngles;
         _rotationX = angles.y;
         _rotationY = angles.x;
-
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
     }
 
-    //This update function should fix the cursor problem in a roundabout way
+
 
     private void Update()
     {
