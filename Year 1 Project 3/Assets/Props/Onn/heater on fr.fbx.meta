@@ -3,7 +3,12 @@ guid: 7c1c12ac1b6f3aa40861663c8237edcf
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m_heater off
+    second: {fileID: 2100000, guid: 654093b652d0a064b9ada30b9461ef06, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
