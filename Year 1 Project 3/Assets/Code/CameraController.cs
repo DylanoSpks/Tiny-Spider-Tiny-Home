@@ -26,7 +26,7 @@ public class SpiderCameraController : MonoBehaviour
 
     private void Update()
     {
-        if (PauseMenu.isPaused)
+        if (PauseMenu.IsPaused)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -40,7 +40,7 @@ public class SpiderCameraController : MonoBehaviour
     
     void LateUpdate()
     {
-        if (!PauseMenu.isPaused)
+        if (!PauseMenu.IsPaused)
         {
             RotateCamera();
         }
@@ -48,7 +48,7 @@ public class SpiderCameraController : MonoBehaviour
 
     private void RotateCamera()
     {
-        if (!PauseMenu.isPaused)
+        if (!PauseMenu.IsPaused)
         {
             if (!target) return;
 

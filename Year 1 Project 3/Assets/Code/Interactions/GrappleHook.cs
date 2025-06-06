@@ -44,7 +44,7 @@ public class GrapplingHook : MonoBehaviour
 
     void Update()
     {
-        if (!PauseMenu.isPaused)
+        if (!PauseMenu.IsPaused)
         {
             HandleInput();
 
