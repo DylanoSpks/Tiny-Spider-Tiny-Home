@@ -1,53 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using System.Collections;
 
 [RequireComponent(typeof(VideoPlayer))]
 public class IntroVideoSequence : MonoBehaviour
 {
+    [Header("Assign in Inspector")]
     public VideoPlayer videoPlayer;
     public List<VideoClip> videoClips;
     public GameObject continuePromptUI;
-    public string nextSceneName = "MainScene";
-    public float promptDelay = 1f;
+    public string nextSceneName = "SampleScene";
 
-    private int _currentIndex;
-    private bool _videoFinished;
+    [Header("Delay Settings")]
+    public float promptDelay = 1.0f;
+
+    private int _currentIndex = 0;
+    private bool _videoFinished = false;
+    private Coroutine _delayCoroutine;
 
     void Start()
     {
-        // Auto-assign VideoPlayer if left empty
-        if (videoPlayer == null)
+        if (videoPlayer == null) 
             videoPlayer = GetComponent<VideoPlayer>();
 
-        if (videoClips == null || videoClips.Count == 0)
-        {
-            Debug.LogError("No VideoClips assigned!");
-            enabled = false;
-            return;
-        }
-
-        // Hide the prompt at start
-        if (continuePromptUI != null)
-            continuePromptUI.SetActive(false);
-
-        // Hook end-of-clip
+        continuePromptUI.SetActive(false);
         videoPlayer.loopPointReached += OnVideoEnd;
-
         PlayCurrentVideo();
     }
 
     void Update()
     {
-        // On Space, only when a clip has finished
+        // ESC skips the entire intro
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // If a prompt delay is still running, stop it
+            if (_delayCoroutine != null)
+                StopCoroutine(_delayCoroutine);
+
+            SceneManager.LoadScene(nextSceneName);
+            return;
+        }
+
+        // SPACE advances after video-end + delay
         if (_videoFinished && Input.GetKeyDown(KeyCode.Space))
         {
-            // Hide prompt
-            if (continuePromptUI != null)
-                continuePromptUI.SetActive(false);
-
+            continuePromptUI.SetActive(false);
             _videoFinished = false;
             _currentIndex++;
 
@@ -60,21 +59,20 @@ public class IntroVideoSequence : MonoBehaviour
 
     void PlayCurrentVideo()
     {
+        continuePromptUI.SetActive(false);
         videoPlayer.clip = videoClips[_currentIndex];
         videoPlayer.Play();
     }
 
     void OnVideoEnd(VideoPlayer vp)
     {
-        // start delay before showing prompt
-        StartCoroutine(ShowPromptWithDelay());
+        // Start the delayed prompt coroutine
+        _delayCoroutine = StartCoroutine(ShowPromptWithDelay());
     }
 
     IEnumerator ShowPromptWithDelay()
     {
-        // wait before showing the UI
         yield return new WaitForSeconds(promptDelay);
-        // now enable UI and allow Space to work
         continuePromptUI.SetActive(true);
         _videoFinished = true;
     }

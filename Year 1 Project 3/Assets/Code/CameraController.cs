@@ -3,20 +3,21 @@ using UnityEngine;
 public class SpiderCameraController : MonoBehaviour
 {
     [Header("Camera Orbit Settings")]
-    public Transform target;            
+    public Transform target;
     public float distance = 3f;
     public float heightOffset = 0.3f;
     public float sensitivityX = 1f;
     public float sensitivityY = 1f;
     public float minY = -80f;
     public float maxY = 80f;
-    public LayerMask collisionMask;     
+    public LayerMask collisionMask;
 
     [Header("Spider Facing Settings")]
-    public Transform spiderModel;       
-    public float spiderTurnSpeed = 6000f; 
-    public LayerMask spiderSurfaceMask;   
-    public float spiderRaycastDistance = 1f; 
+    public Transform spiderModel;
+    [Tooltip("Degrees per second speed for smooth normal interpolation (higher = faster detection).")]
+    public float spiderTurnSpeed = 600f;
+    public LayerMask spiderSurfaceMask;
+    public float spiderRaycastDistance = 1.5f;
     [Tooltip("SphereCast radius for detecting surface normals.")]
     public float sphereCastRadius = 0.2f;
     [Tooltip("Offset amount for the corner raycasts.")]
@@ -45,12 +46,12 @@ public class SpiderCameraController : MonoBehaviour
         if (PauseMenu.IsPaused)
         {
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible   = true;
+            Cursor.visible = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible   = false;
+            Cursor.visible = false;
 
             if (spiderModel != null)
                 UpdateSpiderRotation();
@@ -67,43 +68,49 @@ public class SpiderCameraController : MonoBehaviour
     {
         if (!target) return;
 
+        // Read mouse input
         _rotationX += Input.GetAxis("Mouse X") * sensitivityX;
         _rotationY -= Input.GetAxis("Mouse Y") * sensitivityY;
         _rotationY = Mathf.Clamp(_rotationY, minY, maxY);
 
-        Quaternion rotation = Quaternion.Euler(_rotationY, _rotationX, 0);
-        Vector3 desiredPos =
-            target.position - (rotation * Vector3.forward * distance) + Vector3.up * heightOffset;
+        // Compute camera rotation
+        Quaternion camRot = Quaternion.Euler(_rotationY, _rotationX, 0);
 
-        // camera collision
-        RaycastHit hit;
-        Vector3 targetCenter = target.position + target.up * heightOffset;
-        if (Physics.Linecast(targetCenter, desiredPos, out hit, collisionMask))
+        // Pivot using spider orientation
+        Vector3 pivot = spiderModel != null ? spiderModel.position : target.position;
+        Vector3 upVector = spiderModel != null ? spiderModel.up : Vector3.up;
+
+        // Desired camera position
+        Vector3 desiredPos = pivot - (camRot * Vector3.forward * distance) + (upVector * heightOffset);
+
+        // Collision check
+        Vector3 rayStart = pivot + upVector * heightOffset;
+        if (Physics.Linecast(rayStart, desiredPos, out RaycastHit hit, collisionMask))
         {
             desiredPos = hit.point + hit.normal * 0.1f;
         }
 
         transform.position = desiredPos;
-        transform.rotation = rotation;
+        transform.rotation = camRot;
     }
 
     private void UpdateSpiderRotation()
     {
-        // 1) get averaged surface normal
+        // Get averaged surface normal
         Vector3 avgNormal = GetAverageSurfaceNormal();
-        // 2) smooth toward it
-        _smoothedNormal = Vector3.Slerp(_smoothedNormal, avgNormal, Time.deltaTime * (spiderTurnSpeed / 360f));
-        
-        // 3) build forward projected onto surface plane
+
+        // Smoothly interpolate toward the target normal (higher spiderTurnSpeed = faster detection)
+        _smoothedNormal = Vector3.Slerp(_smoothedNormal, avgNormal, Time.deltaTime * spiderTurnSpeed);
+
+        // Project camera forward onto surface
         Vector3 camForward = transform.forward;
         Vector3 forwardOnSurface = Vector3.ProjectOnPlane(camForward, _smoothedNormal).normalized;
-        if (forwardOnSurface.sqrMagnitude < 0.001f) 
-            return;
+        if (forwardOnSurface.sqrMagnitude < 0.001f) return;
 
-        // 4) compute target rotation
+        // Compute target rotation for spider
         Quaternion targetRot = Quaternion.LookRotation(forwardOnSurface, _smoothedNormal);
 
-        // 5) rotate spider smoothly
+        // Apply rotation with tween speed
         spiderModel.rotation = Quaternion.RotateTowards(
             spiderModel.rotation,
             targetRot,
@@ -143,9 +150,6 @@ public class SpiderCameraController : MonoBehaviour
             }
         }
 
-        if (count > 0)
-            return (sum / count).normalized;
-        else
-            return Vector3.up; // fallback to flat
+        return (count > 0) ? (sum / count).normalized : Vector3.up;
     }
 }
