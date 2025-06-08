@@ -7,8 +7,8 @@ namespace TMPro.Examples
     public class TMP_UiFrameRateCounter : MonoBehaviour
     {
         public float UpdateInterval = 5.0f;
-        private float m_LastInterval = 0;
-        private int m_Frames = 0;
+        private float m_LastInterval;
+        private int m_Frames;
 
         public enum FpsCounterAnchorPositions { TopLeft, BottomLeft, TopRight, BottomRight };
 
