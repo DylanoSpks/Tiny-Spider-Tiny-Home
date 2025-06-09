@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ControlsIntro : MonoBehaviour
 {
@@ -9,33 +10,27 @@ public class ControlsIntro : MonoBehaviour
     [Header("Timing")]
     public float introDuration = 5f;
 
-    void Start()
-    {
-        // 1) Pause everything
-        Time.timeScale = 0f;
+    // static so other scripts can check
+    public static bool IsIntroActive { get; private set; }
 
-        // 2) Show the controls panel, hide the “press space” prompt
+    private IEnumerator Start()
+    {
+        IsIntroActive = true;                // tell everyone “we’re in intro”
+        yield return null;                   // let Awake/Start of other scripts run
+        Time.timeScale = 0f;                 // pause
+
         controlsPanel.SetActive(true);
         pressSpacePanel.SetActive(false);
 
-        // 3) Begin the intro sequence
-        StartCoroutine(IntroSequence());
-    }
-
-    private System.Collections.IEnumerator IntroSequence()
-    {
         yield return new WaitForSecondsRealtime(introDuration);
 
-        // Show “Press Space to Continue”
         pressSpacePanel.SetActive(true);
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-        // Wait until Space is pressed
-        while (!Input.GetKeyDown(KeyCode.Space))
-        {
-            yield return null;
-        }
         controlsPanel.SetActive(false);
         pressSpacePanel.SetActive(false);
-        Time.timeScale = 1f;
+        Time.timeScale = 1f;                 // un-pause
+
+        IsIntroActive = false;               // intro over
     }
 }

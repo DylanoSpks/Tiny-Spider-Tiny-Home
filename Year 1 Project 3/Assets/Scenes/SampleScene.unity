@@ -6217,11 +6217,11 @@ Transform:
   m_GameObject: {fileID: 634100764}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6517122, y: 0.27435616, z: -0.27435616, w: 0.6517122}
-  m_LocalPosition: {x: 6.742, y: 0.739, z: 1.96}
+  m_LocalPosition: {x: 6.742, y: 0.73899984, z: 1.9599991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1855927318}
+  m_Father: {fileID: 959100496}
   m_LocalEulerAnglesHint: {x: 90, y: 45.66, z: 0}
 --- !u!114 &634100766
 MonoBehaviour:
@@ -6257,7 +6257,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 0.7411765, b: 0.37254903, a: 1}
-  m_Intensity: 110
+  m_Intensity: 130
   m_Range: 7
   m_SpotAngle: 179
   m_InnerSpotAngle: 179
@@ -7889,6 +7889,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 904729660}
+  - {fileID: 634100765}
   m_Father: {fileID: 505913462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &959100497
@@ -11513,7 +11514,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 0.68235296, g: 0.91764706, b: 0.93333334, a: 1}
-  m_Intensity: 90
+  m_Intensity: 130
   m_Range: 7
   m_SpotAngle: 179
   m_InnerSpotAngle: 179
@@ -14892,7 +14893,6 @@ Transform:
   m_Children:
   - {fileID: 1516646706}
   - {fileID: 1482016811}
-  - {fileID: 634100765}
   - {fileID: 160340888}
   m_Father: {fileID: 2105323460}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

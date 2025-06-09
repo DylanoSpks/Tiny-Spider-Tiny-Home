@@ -13,16 +13,20 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        // Ensure at runtime both panels start hidden
+        // Ensure panels start hidden
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);
     }
 
     void Update()
     {
+        // Prevent pausing until intro has finished
+        if (ControlsIntro.IsIntroActive)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // If OptionsPanel is open, close it first
+            // If OptionsPanel is open, close it
             if (optionsPanel.activeSelf)
             {
                 CloseOptions();
@@ -42,8 +46,8 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        pausePanel.SetActive(true);    // show main pause UI
-        optionsPanel.SetActive(false); // ensure options stays hidden
+        pausePanel.SetActive(true);
+        optionsPanel.SetActive(false);
         Time.timeScale = 0f;
         IsPaused = true;
         Cursor.lockState = CursorLockMode.None;
@@ -60,14 +64,12 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
     }
 
-    // Called when Options button is clicked
     public void OpenOptions()
     {
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
     }
 
-    // Called when ESC is pressed while in OptionsPanel (or if you have a Back button)
     public void CloseOptions()
     {
         optionsPanel.SetActive(false);
