@@ -1,81 +1,78 @@
-// InteractionManager.cs
-// Handles raycasting from the center of the screen,
-// shows/hides a custom UI panel with a key icon and action text,
-// and invokes interaction when the player presses the configured key.
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-public class InteractionManager : MonoBehaviour {
-    //Dylano changes
-    [FormerlySerializedAs("_boltSlider")] [SerializeField] private Slider boltSlider;
-    
-    
-    [Header("References")]
-    [Tooltip("Camera used to perform raycasts")]   
+public class InteractionManager : MonoBehaviour
+{
+    public static InteractionManager Instance { get; private set; }
+    public event Action<GameObject> OnInteraction;
+
+    [FormerlySerializedAs("_boltSlider")]
+    [SerializeField] private Slider boltSlider;
     [SerializeField] private Camera playerCamera;
-    [Tooltip("Parent GameObject for the prompt UI (small key icon + text)")]
     [SerializeField] private GameObject promptUI;
-    [Tooltip("Text field for the key icon (e.g. 'E')")]
     [SerializeField] private TextMeshProUGUI keyText;
-    [Tooltip("Text field for the action description (e.g. 'Interact')")]
     [SerializeField] private TextMeshProUGUI actionText;
-
-    [Header("Settings")]
-    [Tooltip("Max distance for detecting interactables")]  
     [SerializeField] private float interactDistance = 3.5f;
-    [Tooltip("Key to press for interaction")]  
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     private IInteractable _currentInteractable;
+    private GameObject _currentInteractableObject;
 
-    private void Start() {
-        if (promptUI == null || playerCamera == null) {
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
+    }
+
+    private void Start()
+    {
+        if (promptUI == null || playerCamera == null)
+        {
             Debug.LogError("InteractionManager: Assign all references in the inspector!");
             enabled = false;
             return;
         }
-
-        // Hide the UI at the start
         promptUI.SetActive(false);
-
-        // Set the key icon text dynamically
         keyText.text = interactKey.ToString();
     }
-    
-    private void Update() {
-        CheckForInteractable();
 
-        if (_currentInteractable != null && Input.GetKeyDown(interactKey)) {
+    private void Update()
+    {
+        CheckForInteractable();
+        if (_currentInteractable != null && Input.GetKeyDown(interactKey))
+        {
             _currentInteractable.OnInteract();
+            OnInteraction?.Invoke(_currentInteractableObject);
             promptUI.SetActive(false);
             _currentInteractable = null;
-
+            _currentInteractableObject = null;
             boltSlider.value -= 10;
-            if (boltSlider.value <= 0)
-            {
-                SceneManager.LoadSceneAsync(3);
-            }
+            if (boltSlider.value <= 0) SceneManager.LoadSceneAsync(3);
         }
     }
-    
-    private void CheckForInteractable() {
+
+    private void CheckForInteractable()
+    {
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance)) {
-            // Directly look for InvisibilityInteractable (or any IInteractable implementer)
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+        {
             var invis = hit.collider.GetComponent<InvisibilityInteractable>();
-            if (invis != null) {
+            if (invis != null)
+            {
                 _currentInteractable = invis;
+                _currentInteractableObject = hit.collider.gameObject;
                 promptUI.SetActive(true);
                 return;
             }
         }
-
-        // Nothing valid hit: hide UI
-        if (_currentInteractable != null) {
+        if (_currentInteractable != null)
+        {
             _currentInteractable = null;
+            _currentInteractableObject = null;
             promptUI.SetActive(false);
         }
     }
