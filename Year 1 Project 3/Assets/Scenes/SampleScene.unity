@@ -811,7 +811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ff653f024a5451f4190d4de703f9513b, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ff653f024a5451f4190d4de703f9513b, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1164,7 +1164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 143552497}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LampOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3605,12 +3605,12 @@ GameObject:
   - component: {fileID: 468499554}
   - component: {fileID: 468499553}
   - component: {fileID: 468499557}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: 'LightSwitchLamp '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &468499552
 Transform:
@@ -5633,7 +5633,7 @@ GameObject:
   - component: {fileID: 609752179}
   - component: {fileID: 609752181}
   - component: {fileID: 609752180}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8007,7 +8007,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 975409891}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LampOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8822,7 +8822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ff653f024a5451f4190d4de703f9513b, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ff653f024a5451f4190d4de703f9513b, type: 3}
       propertyPath: m_IsActive
@@ -9058,7 +9058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e6ab2377b053cc84cb285db02a88e660, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e6ab2377b053cc84cb285db02a88e660, type: 3}
       propertyPath: m_IsActive
@@ -10916,7 +10916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e6ab2377b053cc84cb285db02a88e660, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e6ab2377b053cc84cb285db02a88e660, type: 3}
       propertyPath: m_IsActive
@@ -11716,12 +11716,12 @@ GameObject:
   - component: {fileID: 1499505790}
   - component: {fileID: 1499505789}
   - component: {fileID: 1499505792}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: 'LightSwitchLamp '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1499505788
 Transform:
@@ -12717,7 +12717,7 @@ GameObject:
   - component: {fileID: 1621868447}
   - component: {fileID: 1621868449}
   - component: {fileID: 1621868448}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15264,7 +15264,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 6d0d96dfc2bf9fe43a761918706d04fe, type: 3}
   m_Resource: {fileID: 8300000, guid: 6d0d96dfc2bf9fe43a761918706d04fe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
