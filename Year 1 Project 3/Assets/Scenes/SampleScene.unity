@@ -895,11 +895,11 @@ RectTransform:
   - {fileID: 1361034386}
   - {fileID: 414169121}
   - {fileID: 1430716598}
-  m_Father: {fileID: 2056419679}
+  m_Father: {fileID: 2090770982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54.88, y: 0}
+  m_AnchoredPosition: {x: 54.880005, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &113782669
@@ -1510,6 +1510,7 @@ GameObject:
   - component: {fileID: 204298517}
   - component: {fileID: 204298516}
   - component: {fileID: 204298518}
+  - component: {fileID: 204298519}
   m_Layer: 0
   m_Name: InteractionManager
   m_TagString: Untagged
@@ -1564,6 +1565,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusText: {fileID: 71514373}
+--- !u!114 &204298519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204298515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e83521856c0def468f474a01db29692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlsPanel: {fileID: 111200803}
+  pressSpacePanel: {fileID: 1088017551}
+  introDuration: 2
 --- !u!1 &206560610
 GameObject:
   m_ObjectHideFlags: 0
@@ -9244,7 +9260,7 @@ RectTransform:
   m_Children:
   - {fileID: 448280293}
   - {fileID: 1596752869}
-  m_Father: {fileID: 2056419679}
+  m_Father: {fileID: 2090770982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16904,7 +16920,6 @@ GameObject:
   - component: {fileID: 2056419679}
   - component: {fileID: 2056419680}
   - component: {fileID: 2056419681}
-  - component: {fileID: 2056419682}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
@@ -16926,8 +16941,6 @@ RectTransform:
   m_Children:
   - {fileID: 1459954680}
   - {fileID: 1735369954}
-  - {fileID: 111200804}
-  - {fileID: 1088017552}
   m_Father: {fileID: 2090770982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -16961,21 +16974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e18e7cafa5b164458ef977117de0fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2056419682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056419678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e83521856c0def468f474a01db29692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlsPanel: {fileID: 111200803}
-  pressSpacePanel: {fileID: 1088017551}
-  introDuration: 5
 --- !u!1 &2062428687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bb0ee02e6235a149a6d8959106d2398, type: 3}
@@ -17255,6 +17253,8 @@ RectTransform:
   - {fileID: 776824198}
   - {fileID: 505689161}
   - {fileID: 2056419679}
+  - {fileID: 111200804}
+  - {fileID: 1088017552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
