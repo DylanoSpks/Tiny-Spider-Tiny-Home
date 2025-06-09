@@ -1778,7 +1778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 10
-  launchSound: {fileID: 0}
+  launchSound: {fileID: 8300000, guid: 99e0902f680108c4a9cec0a1260794d2, type: 3}
 --- !u!65 &217410366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4354,7 +4354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 10
-  launchSound: {fileID: 0}
+  launchSound: {fileID: 8300000, guid: 99e0902f680108c4a9cec0a1260794d2, type: 3}
 --- !u!1 &499288367
 GameObject:
   m_ObjectHideFlags: 0
@@ -8921,7 +8921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 10
-  launchSound: {fileID: 0}
+  launchSound: {fileID: 8300000, guid: 99e0902f680108c4a9cec0a1260794d2, type: 3}
 --- !u!65 &1051946918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15983,7 +15983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 10
-  launchSound: {fileID: 0}
+  launchSound: {fileID: 8300000, guid: 99e0902f680108c4a9cec0a1260794d2, type: 3}
 --- !u!65 &1914427274
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17368,7 +17368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 10
-  launchSound: {fileID: 0}
+  launchSound: {fileID: 8300000, guid: 99e0902f680108c4a9cec0a1260794d2, type: 3}
 --- !u!65 &2092478161
 BoxCollider:
   m_ObjectHideFlags: 0
